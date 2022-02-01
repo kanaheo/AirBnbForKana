@@ -23,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "$!(ewr687)t4mazqlw59nxssa&w%v@@=ma1z!6#3x+9fb_hdjm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# 이게 false면 404페이지 ! True면 에러페이지가 한눈에 !
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -150,3 +151,5 @@ STATIC_URL = "/static/"
 AUTH_USER_MODEL = "users.User"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "public\img")
+
+MEDIA_URL = "/media/"  # 맨 앞에 /를 줘서 절대경로로 바꾸기
