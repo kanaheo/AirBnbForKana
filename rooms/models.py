@@ -58,7 +58,7 @@ class Photo(core_models.AbstractTimeStampedModel):
     """Photo Model Definition"""
 
     caption = models.CharField(max_length=80)  # 설명
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey(
         "Room", related_name="photos", on_delete=models.CASCADE
     )  # room을 지우면 이미지도 지워야지 !
