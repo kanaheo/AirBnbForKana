@@ -2,6 +2,8 @@ from tabnanny import verbose
 from django.db import models
 from django_countries.fields import CountryField
 from core import models as core_models
+from functools import reduce
+from operator import add
 
 # 아이템을 가질 때 ! ( room이 특별하게 뭔가 옵션을 가질 때? 그런데 처음에 migrate에는 영향안가게 필요할 때 사용하게 )
 class AbstractItem(core_models.AbstractTimeStampedModel):
@@ -98,3 +100,13 @@ class Room(core_models.AbstractTimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = []
+
+        for review in all_reviews:
+            all_ratings.append(review.rating_average())
+        return reduce(add, all_ratings) / len(all_ratings)
+
+    total_rating.short_description = "총평점"
