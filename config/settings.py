@@ -150,6 +150,7 @@ STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"
 
+# MEDIA_ROOT = os.path.join(BASE_DIR, "public")
+# MEDIA_URL = "/media/"  # 맨 앞에 /를 줘서 절대경로로 바꾸기
 MEDIA_ROOT = os.path.join(BASE_DIR, "public\img")
-
-MEDIA_URL = "/media/"  # 맨 앞에 /를 줘서 절대경로로 바꾸기
+MEDIA_URL = "/media/img/"  # 맨 앞에 /를 줘서 절대경로로 바꾸기
