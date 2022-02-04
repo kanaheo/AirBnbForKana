@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
@@ -18,14 +19,17 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
 
-    LANGUAGE_ENGLISH = "english"
-    LANGUAGE_KOREA = "kr"
+    LANGUAGE_ENGLISH = "en"
+    LANGUAGE_KOREAN = "kr"
     # LANGUAGE_CHOICES = (
     #     (LANGUAGE_ENGLISH, "English"),
-    #     (LANGUAGE_KOREA, "Korea")
+    #     (LANGUAGE_KOREAN, "Korea")
     #     (db의 value, 유저가 보는 )
     # )
-    LANGUAGE_CHOICES = ((LANGUAGE_ENGLISH, "English"), (LANGUAGE_KOREA, "Korea"))
+    LANGUAGE_CHOICES = (
+        (LANGUAGE_ENGLISH, _("English")),
+        (LANGUAGE_KOREAN, _("Korean")),
+    )
 
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
@@ -41,7 +45,13 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-    language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
+    language = models.CharField(
+        _("language"),
+        choices=LANGUAGE_CHOICES,
+        max_length=2,
+        blank=True,
+        default=LANGUAGE_KOREAN,
+    )
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
 
     superhost = models.BooleanField(default=False)

@@ -10,6 +10,8 @@ pillow = "*"
 django-countries = "*"
 mysqlclient = "*"
 mysql = "*"
+django-seed = "*"
+psycopg2 = "*"
 
 [dev-packages]
 autopep8 = "*"
