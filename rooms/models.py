@@ -101,6 +101,10 @@ class Room(core_models.AbstractTimeStampedModel):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)  # 맨 앞글자만 대문자로 !
+        super().save(*args, **kwargs)  # Call the real save() method
+
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = []
