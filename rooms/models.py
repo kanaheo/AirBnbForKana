@@ -82,7 +82,7 @@ class Room(core_models.AbstractTimeStampedModel):
     guests = models.IntegerField()
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
-    beths = models.IntegerField()
+    bathrooms = models.IntegerField()
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
@@ -109,8 +109,10 @@ class Room(core_models.AbstractTimeStampedModel):
         all_reviews = self.reviews.all()
         all_ratings = []
 
-        for review in all_reviews:
-            all_ratings.append(review.rating_average())
-        return reduce(add, all_ratings) / len(all_ratings)
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                all_ratings.append(review.rating_average())
+            return reduce(add, all_ratings) / len(all_ratings)
+        return 0
 
     total_rating.short_description = "총평점"
