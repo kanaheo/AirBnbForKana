@@ -35,7 +35,7 @@ class Reservation(core_models.AbstractTimeStampedModel):
 
     def in_progress(self):
         now = timezone.localdate()
-        return now > self.check_in and now < self.check_out
+        return now >= self.check_in and now <= self.check_out
 
     in_progress.boolean = True  # boolean형태로 바꿔주기
 

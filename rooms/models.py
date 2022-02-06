@@ -112,7 +112,7 @@ class Room(core_models.AbstractTimeStampedModel):
         if len(all_reviews) > 0:
             for review in all_reviews:
                 all_ratings.append(review.rating_average())
-            return reduce(add, all_ratings) / len(all_ratings)
+            return round(reduce(add, all_ratings) / len(all_ratings), 2)
         return 0
 
     total_rating.short_description = "총평점"
