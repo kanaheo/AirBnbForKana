@@ -94,8 +94,8 @@ class Room(core_models.AbstractTimeStampedModel):
     )
     # SET_NULL : 값이 사라진다면 ForeignKeyField이 null로 바뀐다.(null=True필수)
     # roomtype는 1개여야만한다. airbnb 참고, 또한 room_type가 삭제된다고 room이 삭제되면 이상해 !
-    amenity = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
-    facility = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
+    facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
 
     def __str__(self):
