@@ -52,7 +52,7 @@ class RoomAdmin(admin.ModelAdmin):
             "More About the Space",
             {
                 "classes": ("collapse",),
-                "fields": ("amenity", "facility", "house_rules"),
+                "fields": ("amenities", "facilities", "house_rules"),
             },
         ),
         ("Last Details", {"fields": ("host",)}),
@@ -81,8 +81,8 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "host__superhost",
         "room_type",
-        "amenity",
-        "facility",
+        "amenities",
+        "facilities",
         "house_rules",
         "city",
         "country",
@@ -93,8 +93,8 @@ class RoomAdmin(admin.ModelAdmin):
     search_fields = ("=city", "^host__username")
 
     filter_horizontal = (  # many to relationships에서 사용한다
-        "amenity",
-        "facility",
+        "amenities",
+        "facilities",
         "house_rules",
     )
 
@@ -104,10 +104,12 @@ class RoomAdmin(admin.ModelAdmin):
 
     # self는 RoomAdmin클래스, obj는 room의 row( 즉 a라는 room) 여기에 잇는 amentities를 count하기위해
     def count_amenities(self, obj):
-        return obj.amenity.count()
+        return obj.amenities.count()
 
     def count_photos(self, obj):
         return obj.photos.count()
+
+    count_photos.short_description = "Photo Count"
 
 
 @admin.register(models.Photo)
