@@ -1,5 +1,6 @@
 from math import ceil
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from . import models
 
 # django는 유저가 처음에 이 페이지로 왔을 때 모든 정보를 request를 해서 준다 !
@@ -8,21 +9,14 @@ from . import models
 # 우린 HttpResponse안에다 매번 이렇게 안에다가 <div>hello</div> 이런식으로 안하고 render을 쓸거다
 def all_rooms(request):  # <- 여기 이름은 core url부분에서 이름이 같아야!
     page = request.GET.get("page", 1)
-    page = int(page or 1)  # page가 공백일경우 page= <-이런거
-    page_size = 10
-    limit = page_size * page
-    offset = limit - page_size
-    all_rooms = models.Room.objects.all()[offset:limit]
-    page_count = ceil(models.Room.objects.count() / page_size)
-    page_range = range(1, page_count + 1)
+    room_list = (
+        models.Room.objects.all()
+    )  # 여기서는 처음에 query set만 불러오기만 할 뿐 이걸 밑에서 쓰면 서버에 부담이!
+    paginator = Paginator(room_list, 10)
+    rooms = paginator.get_page(page)
 
     return render(
         request,
         "rooms/index.html",
-        context={
-            "rooms": all_rooms,
-            "page": page,
-            "page_count": page_count,
-            "page_range": page_range,
-        },
+        context={"rooms": rooms},
     )
