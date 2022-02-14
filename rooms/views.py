@@ -1,7 +1,4 @@
-from django.views.generic import ListView
-from django.http import Http404
-from django.views.generic import ListView
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from . import models
 
 
@@ -21,9 +18,16 @@ class IndexView(ListView):
         return context
 
 
-def room_detail(request, pk):
-    try:
-        room = models.Room.objects.get(pk=pk)
-        return render(request, "rooms/detail.html", {"room": room})
-    except models.Room.DoesNotExist:
-        raise Http404()
+# def room_detail(request, pk):
+#     try:
+#         room = models.Room.objects.get(pk=pk)
+#         return render(request, "rooms/detail.html", {"room": room})
+#     except models.Room.DoesNotExist:
+#         raise Http404()
+
+
+class RoomDetail(DetailView):
+
+    """RoomDetail Definition"""
+
+    model = models.Room  # cbv(class based view)방법으로 하려면 model을 꼭 알려줘야함
