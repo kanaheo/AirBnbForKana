@@ -24,9 +24,9 @@ SECRET_KEY = "$!(ewr687)t4mazqlw59nxssa&w%v@@=ma1z!6#3x+9fb_hdjm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # 이게 false면 404페이지 ! True면 에러페이지가 한눈에 !
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = []
 
 
 # Application definition
