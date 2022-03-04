@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render
+from django_countries import countries
 from . import models
 
 
@@ -35,6 +36,57 @@ class RoomDetail(DetailView):
 
 
 def search(request):
-    city = request.GET.get("city")
+    city = request.GET.get("city", "Anywhere")
     city = str.capitalize(city)
-    return render(request, "rooms/search.html", {"city": city})
+    country = request.GET.get("country", "KR")
+    room_type = int(request.GET.get("room_type", 0))
+    price = int(request.GET.get("price", 0))
+    guests = int(request.GET.get("guests", 0))
+    bedrooms = int(request.GET.get("bedrooms", 0))
+    beds = int(request.GET.get("beds", 0))
+    bathrooms = int(request.GET.get("bathrooms", 0))
+    s_amenities = request.GET.getlist("amenities")
+    s_facilities = request.GET.getlist("facilities")
+    instant_book = request.GET.get("instant_book", False)
+    super_host = request.GET.get("super_host", False)
+
+    # form에서 쓰는것들 form으로 리턴시키기 위해서 ! 즉 search.html에서 value로 쓰려고 !
+    form = {
+        "city": city,
+        "selected_country": country,
+        "selected_room_type": room_type,
+        "price": price,
+        "guests": guests,
+        "bedrooms": bedrooms,
+        "beds": beds,
+        "bathrooms": bathrooms,
+        "s_amenities": s_amenities,
+        "s_facilities": s_facilities,
+        "instant_book": instant_book,
+        "super_host": super_host,
+    }
+
+    room_types = models.RoomType.objects.all()
+    amenities = models.Amenity.objects.all()
+    facilities = models.Facility.objects.all()
+
+    # options에 오는것들
+    choices = {
+        "countries": countries,
+        "room_types": room_types,
+        "amenities": amenities,
+        "facilities": facilities,
+    }
+
+    filter_args = {}
+
+    if city != "Anywhere":
+        filter_args["city__startswith"] = city
+
+    rooms = models.Room.objects.filter(**filter_args)
+
+    return render(
+        request,
+        "rooms/search.html",
+        {**form, **choices, "rooms": rooms},
+    )
