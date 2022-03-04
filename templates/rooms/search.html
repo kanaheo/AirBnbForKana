@@ -4,10 +4,121 @@
     Search
 {% endblock page_title %}
 
+{% block search-bar %}
+{% endblock search-bar %}
+{% comment %} 
+위에는 단순히 base.html에서 serarch-bar을 표시하니까 ! base.html에서의 결과를 안보여되니 숨기기
+대신 밑에 form에서 다시 하면서 여기서 나타낸다.
+nav부분에서는 단순히 city로만 검색하니까 !! 상세검색을 search.html에서 진행하니 밑에처럼
+{% endcomment %}
+
 {% block content %}
+
+<form method="get" action="{% url "rooms:search" %}">
+    <div>
+        <label for="city">city</label>
+        <input value="{{city}}" id="city" name="city" placeholder="Search by City" />
+    </div>
+    <div>
+        <label for="country">Country</label>
+        <select id="country" name="country">
+            {% for country in countries  %}
+                <option value="{{country.code}}" {% if country.code == selected_country %}selected{% endif %}>
+                    {{country.name}}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="room_type">Room Types</label>
+        <select id="room_type" name="room_type">
+            <option value="0" {% if selected_room_type == 0 %}selected{% endif %}>Any kind</option>
+            {% for room_type in room_types  %}
+                <option value="{{room_type.pk}}" {% if room_type.pk == selected_room_type %}selected{% endif %}>
+                    {{room_type.name}}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="price">Price</label>
+        <input type="number" id="price" name="price" value="{{price}}" placeholder="Price" />
+    </div>
+    <div>
+        <label for="guests">Guests</label>
+        <input type="number" id="guests" name="guests" value="{{guests}}" placeholder="Guests" />
+    </div>
+    <div>
+        <label for="bedrooms">Bedrooms</label>
+        <input type="number" id="bedrooms" name="bedrooms" value="{{bedrooms}}" placeholder="Bedrooms" />
+    </div>
+    <div>
+        <label for="beds">Beds</label>
+        <input type="number" id="beds" name="beds" value="{{beds}}" placeholder="Beds" />
+    </div>
+    <div>
+        <label for="bathrooms">Bathrooms</label>
+        <input type="number" id="bathrooms" name="bathrooms" value="{{bathrooms}}" placeholder="Bathrooms" />
+    </div>
+
+    <div>
+        <label for="instant_book">Instant Book Only?</label>
+        <input type="checkbox" id="instant_book" name="instant_book" {% if instant_book %}checked{% endif %} />
+    </div>
+
+    <div>
+        <label for="super_host">By Superhost Only?</label>
+        <input type="checkbox" id="super_host" name="super_host" {% if super_host %}checked{% endif %} />
+    </div>
+
+    <div>
+        <h3>Amenities</h3>
+        <ul>
+            {% for amenity in amenities  %}
+                <li>
+                    <label for="a_{{amenity.pk}}">{{amenity.name}}</label>
+                    <input 
+                        type="checkbox" 
+                        id="a_{{amenity.pk}}" 
+                        name="amenities" 
+                        value={{amenity.pk}} 
+                        {% if amenity.pk|slugify in s_amenities %}
+                            checked
+                        {% endif %} />
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>Facilities</h3>
+        <ul>
+            {% for facility in facilities  %}
+                <li>
+                    <label for="f_{{facility.pk}}">{{facility.name}}</label>
+                    <label for="a_{{amenity.pk}}">{{amenity.name}}</label>
+                    <input 
+                        type="checkbox" 
+                        id="f_{{facility.pk}}" 
+                        name="facilities" 
+                        value={{facility.pk}} 
+                        {% if facility.pk|slugify in s_facilities %}
+                            checked
+                        {% endif %} />
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button>Search</button>
+</form>
+
+<h3>Results</h3>
+
+{% for room in rooms %}
+    <h4>{{room.name}}</h4>
+{% endfor %}
 
 <h4>search!</h4>
 
 <h4>Searching by {{city}}</h4>
 
-{% endblock content %}z
+{% endblock content %}
