@@ -123,4 +123,4 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"  # django는 user를 커스텀하기를 권장한다 그래서 나의 user를 보 수 있게 하기 위해서
