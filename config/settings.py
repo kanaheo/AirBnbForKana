@@ -39,7 +39,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ["django_countries"]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
@@ -89,6 +89,18 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+
+# DATABASES = { # 개인 컴에서 할 때 mysql서비스를 활성화 시켜야함 인터넷에서 찾아보기
+# Can't connect to server on 'localhost' (10061) <- 이거 에러에 대해서 바로 나옴
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "airbnb",
+#         "USER": "root",
+#         "PASSWORD": "1q2w3e4r!",
+#         "HOST": "localhost",
+#         "PORT": "3306",
+#     }
+# }
 
 
 # Password validation
