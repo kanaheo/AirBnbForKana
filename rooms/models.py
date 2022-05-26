@@ -54,7 +54,7 @@ class Photo(core_models.TimeStampedModel):
     """Photo Model Definition"""
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     # related_name를 안쓰고 admin에서 photo를 쓰려고 하면 안된다 !!! room이 photo를 참조하는 않으니 !
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 

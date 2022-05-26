@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "e6eiyla@d-s+@g6io7$()c%lc0_750jns4ul*s%_8$98n$mnk-"
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production! 이게 실제 서버인지 아닌지 체크해줌
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -146,3 +146,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"  # django는 user를 커스텀하기를 권장한다 그래서 나의 user를 보 수 있게 하기 위해서
+
+# http://127.0.0.1:8000/admin/rooms/photo/1/change/room_photos/S__52740109.jpg 이렇게 됨 ! 그런데 이걸 상대주소로 바꿔야함 !! 그게 MEDIA_URL
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+# 또한 config/urls.py에서 라우터를 해줘서 uploads와 media를 연결해줌 ( 꼭 media가 아니여도 괜찮) / 이렇게 되도 상관 ㄴ 위에 uploads와 밑에를 연결해주는거니
+# MEDIA_URL = "/"
+MEDIA_URL = "/media/"
