@@ -64,6 +64,7 @@ class RoomAdmin(admin.ModelAdmin):
         "count_amenities",
         "count_photos",
         "count_house_rules",
+        "total_rating",
     )
 
     list_filter = (
@@ -92,7 +93,7 @@ class RoomAdmin(admin.ModelAdmin):
         return obj.photos.count()
 
     def count_house_rules(self, obj):
-        return obj.houserules.count()
+        return obj.house_rules.count()
 
 
 @admin.register(models.Photo)
