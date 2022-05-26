@@ -2,7 +2,7 @@ from django.db import models
 from core import models as core_models
 
 
-class Lists(core_models.TimeStampedModel):
+class List(core_models.TimeStampedModel):
 
     """List Model Definition"""
 
@@ -14,3 +14,8 @@ class Lists(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def count_rooms(self):
+        return self.rooms.count()
+
+    count_rooms.short_description = "Number of Rooms"
