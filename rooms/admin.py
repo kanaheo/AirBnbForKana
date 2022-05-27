@@ -14,15 +14,23 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.rooms.count()
 
 
+# 어드민에 또다른 어드민을 추가하기 ! StackedInline, TabularInline 어드민에서 어떻게 보이는지에 대한 차이임
+# class PhotoInline(admin.StackedInline):
+class PhotoInline(admin.TabularInline):
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """Room Admin Definition"""
 
+    inlines = (PhotoInline,)  # 위에서 photoInline를 추가하기
+
     fieldsets = (
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price")},
+            {"fields": ("name", "description", "country", "city", "address", "price")},
         ),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")}),
         (
@@ -78,6 +86,8 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
+
+    raw_id_fields = ("host",)
 
     search_fields = ("city", "host__username")
 

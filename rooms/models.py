@@ -92,6 +92,11 @@ class Room(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    # save할 때 일어나는 함수임 ! 여기서 커스텀을 해서 저장 할 때 원하는데로 할 수 있음 ( 맨 앞글자를 대문자로한다던가 등등 )
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)
+
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
