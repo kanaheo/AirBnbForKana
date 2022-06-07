@@ -103,6 +103,8 @@ class RoomAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         return obj.photos.count()
 
+    count_photos.short_description = "Photo Count"
+
     def count_house_rules(self, obj):
         return obj.house_rules.count()
 
