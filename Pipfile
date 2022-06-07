@@ -8,6 +8,8 @@ django = "==2.2.5"
 pillow = "*"
 django-countries = "*"
 mysqlclient = "*"
+django-seed = "*"
+psycopg2 = "*"
 
 [dev-packages]
 flake8 = "*"
