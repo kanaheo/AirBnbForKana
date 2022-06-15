@@ -1,8 +1,6 @@
 import random
 from datetime import datetime, timedelta
-from secrets import choice
 from django.core.management.base import BaseCommand
-from django.contrib.admin.utils import flatten
 from django_seed import Seed
 from reservations import models as reservation_models
 from users import models as user_models
