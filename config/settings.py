@@ -155,3 +155,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 # 또한 config/urls.py에서 라우터를 해줘서 uploads와 media를 연결해줌 ( 꼭 media가 아니여도 괜찮) / 이렇게 되도 상관 ㄴ 위에 uploads와 밑에를 연결해주는거니
 # MEDIA_URL = "/"
 MEDIA_URL = "/media/"
+
+# Email Configuration
+
+EMAIL_HOST = "smtp.mailgun.org"
+EMAIL_POST = "587"
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+EMAIL_FROM = "kkana@sandbox713c61b466344257a2fdb21b34bc05b7.mailgun.org"
