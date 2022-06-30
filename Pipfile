@@ -10,6 +10,7 @@ django-countries = "*"
 mysqlclient = "*"
 django-seed = "*"
 psycopg2 = "*"
+django-dotenv = "*"
 
 [dev-packages]
 flake8 = "*"
