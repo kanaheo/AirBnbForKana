@@ -24,7 +24,7 @@ class LoginForm(forms.Form):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = ("first_name", "last_name", "email", "birthdate")
+        fields = ("first_name", "last_name", "email")
 
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
